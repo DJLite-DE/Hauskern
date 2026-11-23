@@ -1,0 +1,102 @@
+HAUSKERN – LIZENZ, HAFTUNG, DATENSCHUTZ & FREMDSOFTWARE
+========================================================
+(Kurzfassung in verständlicher Sprache. Rechtlich verbindlich ist der Lizenztext in LICENSE.txt.)
+
+
+1. LIZENZ – FREIE SOFTWARE (GPL-3.0)
+------------------------------------
+Hauskern ist freie Software: Copyright (C) 2026 Die Hauskern-Autoren.
+Du darfst Hauskern unter den Bedingungen der GNU General Public License Version 3 (oder, nach
+deiner Wahl, einer späteren Version) kostenlos benutzen, weitergeben und verändern.
+
+Wichtig für alle, die Hauskern weitergeben oder verändert weitergeben:
+  • Der Quellcode muss mitgegeben werden – bei Hauskern sind die .py-Dateien selbst der Quellcode.
+  • Veränderte Fassungen müssen ebenfalls unter der GPL-3.0 stehen und als verändert erkennbar sein.
+  • Diese Datei und LICENSE.txt müssen dabei bleiben.
+
+Den vollständigen Lizenztext findest du in LICENSE.txt (englisch, offizielle Fassung der FSF).
+
+
+2. OHNE GEWÄHR – NUTZUNG AUF EIGENE VERANTWORTUNG
+--------------------------------------------------
+Hauskern wird kostenlos und in der Hoffnung bereitgestellt, dass es nützlich ist – aber OHNE
+JEDE GEWÄHRLEISTUNG, auch ohne die stillschweigende Gewähr der Marktreife oder der Eignung für
+einen bestimmten Zweck (Abschnitte 15 und 16 der GPL-3.0). Soweit gesetzlich zulässig, wird
+keine Haftung für Schäden übernommen, die durch die Nutzung entstehen. Zwingende gesetzliche
+Haftung (z. B. bei Vorsatz) bleibt davon unberührt.
+
+Hauskern schaltet echte Geräte (Steckdosen, Heizkörper, Lampen, 3D-Drucker …). Deshalb:
+  • Keine Geräte über Hauskern steuern, deren unbeaufsichtigtes Ein- oder Ausschalten gefährlich
+    sein kann (z. B. Heizlüfter, Bügeleisen, Herdplatten, medizinische Geräte, Aquarium-/
+    Terrarien-Technik, Alarmanlagen).
+  • Hauskern ist kein Sicherheits-, Brandschutz- oder Alarmsystem. Kamera- und Push-Meldungen
+    können verspätet kommen oder ausfallen.
+  • Automationen vor dem Einsatz testen. Hauskern legt keine Automationen von selbst an.
+  • Für Funktionen fremder Geräte und Dienste gelten deren Bedingungen. Hersteller können
+    Schnittstellen jederzeit ändern – dann kann eine Funktion ohne Vorwarnung wegfallen.
+
+
+3. SICHERHEIT
+-------------
+  • Hauskern NIE per Portfreigabe, "Exposed Host" oder DMZ ins Internet stellen. Von unterwegs
+    nur über ein VPN zugreifen (z. B. das VPN der FRITZ!Box oder WireGuard).
+  • Eine eigene, nicht leicht zu erratende PIN für den Handy-Zugang wählen und Handy-Nutzern
+    nur die Rechte geben, die sie brauchen.
+  • Updates nur aus der offiziellen Quelle installieren. Hauskern prüft die digitale
+    Unterschrift jedes Updates und lehnt veränderte Pakete ab.
+  • Erweiterungen (eigene .py-Dateien im Erweiterungs-Ordner) laufen mit allen Rechten von
+    Hauskern – nur Erweiterungen verwenden, denen du vertraust.
+
+
+4. DATENSCHUTZ
+--------------
+Hauskern läuft bei dir zu Hause und hat keinen eigenen Server. Es gibt kein Konto, keine
+Werbung, keine Nutzungsstatistik und keine Weitergabe von Daten an die Hauskern-Autoren.
+Einstellungen, Passwörter, Verlauf und Aufnahmen bleiben auf deinem Rechner
+(Windows: %APPDATA%\Hauskern · Mac/Linux: ~/.config/Hauskern).
+
+Hauskern verbindet sich nur dann mit Diensten im Internet, wenn du die jeweilige Funktion
+nutzt – dann direkt zwischen deinem Rechner und dem Dienst, nach dessen Datenschutzregeln:
+  • Wetter: Open-Meteo (api.open-meteo.com) – dabei wird dein Ort (Koordinaten) übertragen.
+  • Ort ungefähr bestimmen (nur wenn kein Ort eingetragen ist): einer der Dienste
+    freeipapi.com, ipwho.is, geojs.io oder ipapi.co – dabei sieht der Dienst deine IP-Adresse.
+  • Unwetterwarnungen: Deutscher Wetterdienst (maps.dwd.de).
+  • Kalender: die von dir eingetragenen Kalender (z. B. iCloud, Google).
+  • Push-Nachrichten: der von dir gewählte Dienst (Telegram, ntfy, Pushover).
+  • Einmalige Downloads auf Wunsch: ffmpeg (gyan.dev bzw. GitHub, Windows) und das KI-Modell
+    für die Kamera-Erkennung (huggingface.co) – beide mit Prüfsumme.
+  • "🐞 Problem melden" öffnet nur deinen Browser mit einer vorausgefüllten Meldung auf GitHub.
+    Abgeschickt wird erst, wenn DU dort auf "Create" klickst. GitHub-Meldungen sind öffentlich;
+    Hauskern entfernt vorher IP-/MAC-Adressen, Namen, Pfade, E-Mail-Adressen und Passwörter.
+    Für GitHub gelten die Datenschutzregeln von GitHub.
+
+
+5. MARKEN
+---------
+Hauskern ist ein unabhängiges Projekt und kein offizielles Produkt der genannten Hersteller.
+FRITZ!Box und FRITZ!DECT (AVM/FRITZ!), Bambu Lab, Tapo (TP-Link), Shelly, Philips Hue, Tasmota,
+ESPHome, Zigbee, Sky Q, Telegram, Siri und Apple, Alexa und Amazon, Google, Hanseatic und alle
+weiteren Namen sind Marken ihrer jeweiligen Inhaber. Sie werden nur genannt, um zu beschreiben,
+womit Hauskern zusammenarbeitet.
+
+
+6. FREMDSOFTWARE UND DATEN
+--------------------------
+Hauskern selbst besteht nur aus eigenem Python-Code und braucht nur Python.
+Folgendes wird NICHT mitgeliefert, sondern auf deinem Rechner genutzt bzw. auf Wunsch geladen:
+
+  • Python – Python Software Foundation License (python.org)
+  • Tk/Tkinter (Teil von Python) – Tcl/Tk-Lizenz (BSD-artig)
+  • ffmpeg (für Kameras und Zeitraffer) – GPL-3.0; unter Windows die "essentials"-Builds von
+    gyan.dev, sonst aus dem Paketmanager des Systems (ffmpeg.org)
+  • OpenCV + NumPy (nur für die Kamera-Erkennung, optional) – Apache-2.0 bzw. BSD-3-Clause
+  • KI-Modell YOLOX (object_detection_yolox_2022nov.onnx aus dem OpenCV Model Zoo) –
+    Apache-2.0, ursprünglich von Megvii; erkennt Objektklassen des COCO-Datensatzes
+  • Wetterdaten: Open-Meteo.com – Daten unter CC BY 4.0 ("Wetterdaten: Open-Meteo.com")
+  • Unwetterwarnungen: Deutscher Wetterdienst – "Quelle: Deutscher Wetterdienst"
+
+
+7. KONTAKT
+----------
+Fragen, Fehler und Ideen: auf der Projektseite (GitHub) unter "Issues" – oder direkt in
+Hauskern über "🐞 Problem melden".

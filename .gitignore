@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+# niemals hochladen:
+*GEHEIM*
+meldeziel.json
+privat.py
+Hauskern-Umzug.zip

@@ -1,0 +1,84 @@
+HAUSKERN – HEIMSERVER EINRICHTEN (Raspberry Pi oder Mini-PC mit Linux)
+=======================================================================
+
+Ein Heimserver läuft rund um die Uhr. Dann ist Hauskern am Handy immer erreichbar, Automationen
+laufen auch nachts, und der Windows-PC darf aus sein.
+
+Geeignet sind:
+  • Raspberry Pi 4 oder 5 (mit Raspberry Pi OS)
+  • ein Mini-PC (z. B. Intel N100, gebrauchter Lenovo ThinkCentre Tiny, HP EliteDesk Mini, Fujitsu Esprimo)
+    mit Debian 12/13, Ubuntu (22.04 oder neuer) oder Linux Mint
+  2 GB RAM reichen, 4–8 GB sind entspannt. Eine SSD ist besser als eine SD-Karte.
+
+
+1. LINUX INSTALLIEREN
+---------------------
+Raspberry Pi:
+  Mit dem "Raspberry Pi Imager" (raspberrypi.com/software) "Raspberry Pi OS Lite" auf SSD oder
+  SD-Karte schreiben. Im Imager unter "Einstellungen bearbeiten" gleich setzen:
+  Benutzername + Passwort, WLAN (falls kein Kabel), SSH aktivieren, Zeitzone Europe/Berlin.
+
+Mini-PC:
+  "Debian" (debian.org) oder "Ubuntu Server" (ubuntu.com/download/server) auf einen USB-Stick
+  schreiben (z. B. mit "Rufus" oder "balenaEtcher") und davon installieren. Dabei:
+    • einen normalen Benutzer anlegen (nicht nur "root")
+    • "SSH-Server" mit auswählen, dann geht alles Weitere bequem vom PC aus
+    • Zeitzone Europe/Berlin
+  Im BIOS lohnt sich: "Nach Stromausfall einschalten" / "Restore on AC Power Loss: Power On".
+  Dann startet der Mini-PC nach einem Stromausfall von selbst wieder.
+
+Am besten per Netzwerkkabel an Router oder Switch – das ist stabiler als WLAN.
+In der FRITZ!Box (Heimnetz → Netzwerk → Gerät bearbeiten) "Immer die gleiche IPv4-Adresse
+zuweisen" anhaken – dann ändert sich die Adresse nie.
+
+
+2. HAUSKERN DRAUFKOPIEREN
+-------------------------
+Am Windows-PC: Hauskern öffnen → ⋯ Mehr → "Heimserver (Pi/Mini-PC)" → "Umzugspaket erstellen".
+Das nimmt deine Einstellungen mit (Achtung: inkl. Passwörtern – danach löschen).
+
+Dann den ganzen Hauskern-Ordner und die Hauskern-Umzug.zip auf den Heimserver kopieren, z. B. mit
+"WinSCP" (winscp.net) oder in der Eingabeaufforderung:
+    scp -r Hauskern Hauskern-Umzug.zip benutzer@192.168.178.50:~/
+
+(Ohne Umzugspaket geht es auch: Dann führt dich Hauskern am Handy durch die Einrichtung.)
+
+
+3. INSTALLIEREN
+---------------
+Am PC die Eingabeaufforderung öffnen und auf den Heimserver verbinden:
+    ssh benutzer@192.168.178.50
+Dann:
+    cd Hauskern
+    bash install.sh
+
+Das Skript installiert alles Nötige (Python, ffmpeg für Kameras und Zeitraffer …), richtet
+Hauskern als Dienst ein (startet automatisch nach jedem Neustart), prüft die Zeitzone und
+gibt bei einer aktiven Firewall den Port fürs Heimnetz frei.
+Am Ende steht die Adresse da, z. B.  http://192.168.178.50:8770  – die im Handy öffnen.
+
+
+4. DANACH
+---------
+• Am Windows-PC unter ⋯ Mehr → "Heimserver" die Adresse eintragen und den Haken
+  "Der Heimserver übernimmt" setzen – sonst laufen Automationen doppelt.
+• Updates: Kommt ein Update auf den PC, schickt der PC es automatisch an den Heimserver.
+• Sicherung: Der Heimserver sichert jede Nacht – auf Wunsch auch auf ein Laufwerk an der
+  FRITZ!Box (⋯ Mehr → Sicherung).
+• Status ansehen:      systemctl status hauskern
+• Neu starten:         sudo systemctl restart hauskern
+• Fehlerprotokoll:     ~/.config/Hauskern/fehlerprotokoll.log
+• Klappt etwas nicht?  Am Handy ⚙ → "🐞 Problem melden" – öffnet eine fertige Meldung auf der
+                       Projektseite (GitHub, ohne Adressen, Namen und Passwörter).
+• Kein Admin kommt mehr rein, weil das Handy mit der Zwei-Faktor-App weg ist und die Notfallcodes
+  auch? Dann per ssh auf den Heimserver und:
+      sudo systemctl stop hauskern
+      python3 ~/Hauskern/Hauskern.pyw --2fa-zuruecksetzen            (alle)  oder
+      python3 ~/Hauskern/Hauskern.pyw --2fa-zuruecksetzen Anna       (nur einer)
+      sudo systemctl start hauskern
+  Danach reicht wieder die PIN – Zwei-Faktor am Handy neu einrichten.
+• Am Handy zeigt eine eigene Kachel Temperatur, Speicherplatz und Laufzeit des Heimservers.
+• Sicherheit: Den Heimserver NIE per Portfreigabe ins Internet stellen – von unterwegs nur per VPN.
+  Mehr dazu (und zu Lizenz/Haftung) in RECHTLICHES.txt.
+• Kamera-Erkennung (Person, Katze, Fahrzeug …): ⋯ Mehr → 🧠 Kamera-Erkennung einschalten – das
+  KI-Modell lädt der Heimserver dann einmal selbst herunter.

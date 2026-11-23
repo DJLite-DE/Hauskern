@@ -1,0 +1,288 @@
+HAUSKERN – INSTALLATION VON GRUND AUF (Windows, Mac, Linux)
+============================================================
+
+Dauert etwa 5–10 Minuten. Der Rechner muss im Heimnetz sein (WLAN oder Kabel).
+Am meisten kann Hauskern mit einer FRITZ!Box – andere Router (Speedport, Vodafone Station,
+TP-Link, ASUS …) gehen aber auch.
+
+
+WELCHER WEG PASST ZU MIR?
+-------------------------
+  • Windows-PC (Windows 10 / 11) ............ Teil A  – der einfachste Weg, alles per Doppelklick
+  • Mac (macOS 12 oder neuer) ............... Teil B
+  • Linux-PC mit Bildschirm (Ubuntu, Mint …) . Teil C
+  • Rund um die Uhr, auch wenn der PC aus ist:
+    kleiner Heimserver (Raspberry Pi / Mini-PC mit Linux) → eigene Anleitung ANLEITUNG-HEIMSERVER.txt
+  Danach geht es für alle gleich weiter mit Teil D (Einrichten) und Teil E (Handy).
+
+Hauskern braucht nur Python (kostenlos, von python.org) – sonst nichts. Keine Cloud, kein Konto.
+
+
+=====================================================================
+TEIL A – WINDOWS 10 / 11
+=====================================================================
+
+A1. AUSPACKEN UND STARTEN (der einfachste Weg)
+  1. Die heruntergeladene Hauskern-ZIP mit der rechten Maustaste anklicken → "Alle extrahieren …"
+  2. Als Ziel z. B. "Dokumente" wählen → es entsteht der Ordner "Dokumente\Hauskern"
+     (nicht im Download-Ordner lassen – den räumt man gerne mal auf)
+  3. Im Ordner "Hauskern" doppelt auf  Hauskern-Setup.cmd  klicken
+
+Das Setup erledigt alles selbst:
+  • Ist noch kein Python da, installiert es Python automatisch – von der offiziellen Quelle
+    (python.org bzw. über winget, das bei Windows 10/11 dabei ist). Der Installer wird vorher auf
+    seine echte Signatur der "Python Software Foundation" geprüft.
+  • Legt "Hauskern" als Verknüpfung auf den Desktop.
+  • Startet Hauskern.
+
+Fragt Windows "Möchten Sie zulassen, dass …" oder zeigt "Der Computer wurde durch Windows geschützt":
+  → "Weitere Informationen" → "Trotzdem ausführen". Das kommt, weil Hauskern-Setup.cmd
+    nicht aus dem Internet-Shop stammt. Die Datei ist ein einfaches Textskript – man kann sie mit
+    dem Editor öffnen und nachlesen, was sie tut.
+
+Tipp ohne Internet: Liegt im Hauskern-Ordner schon ein Python-Installer
+(python-3.13.x-amd64.exe von python.org), nimmt das Setup den – es lädt dann nichts herunter.
+
+A2. FALLS DAS SETUP NICHT KLAPPT: PYTHON VON HAND
+Weg A:
+  1. Start-Menü öffnen, "cmd" eintippen und die "Eingabeaufforderung" öffnen
+  2. Diese Zeile eintippen und Enter drücken:
+         winget install Python.Python.3.13
+  3. Warten, bis "Erfolgreich installiert" erscheint, Fenster schließen
+
+Weg B – über die Webseite:
+  1. https://www.python.org/downloads/ öffnen
+  2. Auf den gelben Knopf "Download Python 3.13…" klicken
+  3. Die heruntergeladene Datei starten
+  4. WICHTIG: unten den Haken bei "Add python.exe to PATH" setzen
+  5. "Install Now" klicken
+
+Bitte NICHT die Python-Version aus dem Microsoft Store nehmen – damit startet
+Hauskern per Doppelklick eventuell nicht.
+
+Danach im Hauskern-Ordner doppelt auf "Hauskern.pyw" (oder nochmal auf Hauskern-Setup.cmd) klicken.
+Tipp: Rechtsklick auf Hauskern.pyw → "Verknüpfung erstellen" und die Verknüpfung auf den Desktop ziehen.
+
+A3. EXTRAS UNTER WINDOWS
+  • Symbol unten rechts neben der Uhr, Windows-Benachrichtigungen, Autostart mit Windows.
+  • Kamerabilder: Das Zusatzprogramm ffmpeg lädt Hauskern beim ersten Mal selbst herunter.
+  • Passwörter werden mit Windows-Bordmitteln verschlüsselt (an dein Windows-Konto gebunden).
+
+
+=====================================================================
+TEIL B – MAC (macOS 12 Monterey oder neuer)
+=====================================================================
+Gut zu wissen: Hauskern ist für Windows und den Heimserver gebaut und am Mac noch wenig erprobt.
+Die Grundfunktionen laufen, ein paar Windows-Extras fehlen (Symbol in der Menüleiste, Autostart).
+Wer Hauskern dauerhaft laufen lassen will, nimmt besser einen Heimserver – der Mac reicht dann
+als Bildschirm (Hauskern im Browser unter http://ADRESSE-DES-SERVERS:8770 öffnen).
+
+B1. PYTHON INSTALLIEREN
+  1. https://www.python.org/downloads/macos/ öffnen
+  2. "macOS 64-bit universal2 installer" für Python 3.13 laden und öffnen
+  3. Einfach durchklicken ("Fortfahren", "Installieren", Mac-Passwort eingeben)
+  4. Am Ende öffnet sich ein Finder-Fenster: dort doppelt auf "Install Certificates.command" klicken
+     (wichtig für Wetter, Updates und Push-Nachrichten)
+  Bitte die Version von python.org nehmen – sie bringt das Fensterpaket (Tk) gleich mit.
+  (Python über Homebrew geht auch, dann zusätzlich:  brew install python-tk )
+
+B2. HAUSKERN AUSPACKEN
+  1. Hauskern.zip im Finder doppelt anklicken → es entsteht der Ordner "Hauskern"
+  2. Den Ordner z. B. nach "Dokumente" ziehen
+
+B3. STARTEN
+  1. Das Programm "Terminal" öffnen (Programme → Dienstprogramme → Terminal)
+  2. Diese zwei Zeilen eintippen, jeweils mit Enter:
+         cd ~/Documents/Hauskern
+         python3 Hauskern.pyw
+  3. Hauskern öffnet sich. Das Terminal-Fenster bitte offen lassen, solange Hauskern läuft.
+  Fragt der Mac "Soll Python eingehende Verbindungen akzeptieren?" → "Erlauben"
+  (sonst kommt das Handy nicht dran).
+
+B4. EXTRAS AM MAC (optional)
+  • Kamerabilder und Zeitraffer brauchen ffmpeg. Am einfachsten über Homebrew (brew.sh):
+         brew install ffmpeg
+  • Bequemer starten: Hauskern.pyw mit der rechten Maustaste → "Öffnen mit" → "Python Launcher".
+
+
+=====================================================================
+TEIL C – LINUX-PC MIT BILDSCHIRM (Ubuntu, Linux Mint, Debian, Fedora …)
+=====================================================================
+  1. Hauskern.zip in den persönlichen Ordner entpacken (Rechtsklick → "Hier entpacken")
+  2. Ein Terminal öffnen und die nötigen Pakete installieren:
+       Ubuntu / Mint / Debian:   sudo apt install python3 python3-tk ffmpeg
+       Fedora:                   sudo dnf install python3 python3-tkinter ffmpeg
+  3. Starten:
+         cd ~/Hauskern
+         python3 Hauskern.pyw
+  4. Läuft eine Firewall (z. B. "ufw"), den Port fürs Handy im Heimnetz freigeben:
+         sudo ufw allow from 192.168.0.0/16 to any port 8770 proto tcp
+
+Soll Hauskern unter Linux rund um die Uhr und ohne Bildschirm laufen (als Dienst, startet nach jedem
+Neustart von selbst)? Dann ist ANLEITUNG-HEIMSERVER.txt der richtige Weg – dort macht das Skript
+install.sh alles automatisch.
+
+
+=====================================================================
+TEIL D – EINRICHTEN (für alle gleich)
+=====================================================================
+Beim ersten Start öffnet sich der Einrichtungs-Assistent und führt durch alles:
+
+  • Router: Hauskern erkennt selbst, was für einen Router du hast. Du kannst auch wählen:
+      "FRITZ!Box", "Anderer Router" oder "Erstmal ohne Router".
+  • Nur bei FRITZ!Box: Hauskern braucht einen FRITZ!Box-Benutzer. So legst du einen an:
+      Im Browser http://fritz.box öffnen → System → FRITZ!Box-Benutzer → Benutzer hinzufügen
+      Name z. B. "hauskern", ein Passwort ausdenken,
+      Rechte: "FRITZ!Box Einstellungen" und "Smart Home" anhaken → Übernehmen
+  • Geräte im Netz, Personen, Handy-Zugang, Wetter – jeden Schritt kann man auch überspringen.
+
+Den Assistenten findest du später jederzeit links unten unter "⋯ Mehr" → "✨ Einrichtung".
+
+3D-Drucker von Bambu Lab:
+  Hauskern spricht direkt im Heimnetz mit dem Drucker. Seit 2025 lässt Bambu Lab fremde Programme
+  den Drucker aber nur noch steuern (Pause, Stopp, Licht …), wenn am Drucker zwei Schalter an sind:
+    1. Am Drucker-Display: Einstellungen → Netzwerk/WLAN → "Nur LAN" (LAN Only Mode) einschalten
+    2. Direkt darunter "Entwicklermodus" (Developer Mode) einschalten
+  Dort stehen auch die IP-Adresse und der Zugangscode (Access Code). Die Seriennummer steht unter
+  Einstellungen → Gerät. Diese drei Angaben trägst du in Hauskern unter "3D-Drucker hinzufügen" ein.
+  Gut zu wissen: Im LAN-Modus geht die Bambu-Handy-App von unterwegs nicht mehr (Bambu Studio im
+  Heimnetz schon). Die genauen Menünamen hängen vom Druckermodell und der Firmware ab, und Bambu Lab
+  kann diese Regeln mit einem Firmware-Update jederzeit ändern.
+
+Geräte anderer Marken (Shelly, Philips Hue, Tasmota, ESPHome, Zigbee, Fernseher …):
+  "⋯ Mehr" → "🔌 Weitere Hersteller" → Adresse (IP) eintragen → "Erkennen".
+  Die IP eines Geräts steht in der FRITZ!Box unter Heimnetz → Netzwerk.
+
+
+=====================================================================
+TEIL E – HANDY
+=====================================================================
+Im Assistenten (Schritt "Handy-Zugang") eine PIN festlegen und den QR-Code mit der Handykamera
+scannen. Auf dem iPhone in Safari dann: Teilen → "Zum Home-Bildschirm" – fertig, Hauskern ist
+wie eine App auf dem Handy. Bei Android in Chrome: Menü (⋮) → "Zum Startbildschirm hinzufügen".
+
+Fragt Windows nach der Firewall: "Private Netzwerke" erlauben, sonst kommt das Handy nicht dran.
+
+Am Handy oben rechts auf ⚙ tippen: Dort gibt es Siri-Kurzbefehle, "🔐 Zwei-Faktor-Anmeldung",
+"🐞 Problem melden", Automationen und (für Admins) alle Einstellungen.
+
+ZWEI-FAKTOR (empfohlen, wenn du Hauskern auch unterwegs nutzt):
+  1. Eine Authenticator-App aufs Handy holen – z. B. Apple "Passwörter" (ab iOS 18 schon drauf),
+     Google Authenticator, Microsoft Authenticator oder 2FAS (alle kostenlos).
+  2. In Hauskern ⚙ → "🔐 Zwei-Faktor-Anmeldung" öffnen und den QR-Code mit der App scannen.
+     Auf demselben Handy einfach "direkt in die App übernehmen" antippen.
+  3. Den 6-stelligen Code aus der App eintippen → "✅ Einschalten".
+  4. Die 8 NOTFALLCODES aufschreiben oder ein Bildschirmfoto machen – sie erscheinen nur einmal.
+Ab dann fragt Hauskern bei jeder neuen Anmeldung nach PIN UND Code. Handy weg? Mit einem
+Notfallcode anmelden – oder ein Admin setzt Zwei-Faktor zurück (👥 Handy-Nutzer).
+Unterwegs? Auf dem Handy erklärt "Unterwegs? VPN einschalten", wie du von draußen drankommst.
+WICHTIG: Hauskern nie über eine Portfreigabe ("Port 8770 freigeben", "Exposed Host") ins Internet
+stellen – dann könnte jeder es von außen erreichen. Immer über das VPN gehen.
+
+Altes Tablet übrig? Adresse mit /wand am Ende öffnen (z. B. http://192.168.178.20:8770/wand) –
+dann wird es zum Info-Bildschirm an der Wand.
+
+
+=====================================================================
+TEIL F – UPDATES
+=====================================================================
+Neue Version bekommen? Einfach die neue Hauskern-ZIP in den Download-Ordner legen (nicht
+auspacken!) und Hauskern starten. Es fragt dann selbst, ob es die neue Version installieren
+soll – Einstellungen und Daten bleiben erhalten. Das klappt unter Windows, Mac und Linux gleich.
+Läuft ein Heimserver, schickt der PC das Update automatisch dorthin weiter.
+Neue Versionen gibt es auf der Projektseite (GitHub) unter "Releases".
+
+Sicherheit: Jedes offizielle Paket ist digital unterschrieben. Hauskern prüft die Unterschrift
+vor dem Installieren und lehnt veränderte oder gefälschte Pakete ab ("nicht digital unterschrieben"
+bzw. "Unterschrift stimmt nicht"). Dann bitte die ZIP neu von der offiziellen Quelle holen.
+
+
+=====================================================================
+WENN ETWAS NICHT KLAPPT
+=====================================================================
+Allgemein:
+• Links "✓ Diagnose" öffnen und "Jetzt prüfen" klicken – dort steht meist, woran es liegt.
+• Immer noch nicht? → "🐞 Problem melden" (siehe unten).
+
+Windows:
+• Doppelklick auf Hauskern.pyw öffnet nichts oder fragt "Wie soll die Datei geöffnet werden?"
+    → Rechtsklick auf Hauskern.pyw → "Öffnen mit" → "Python" wählen, Haken bei "Immer diese App
+      verwenden". Hilft das nicht: Python nochmal nach A2 installieren.
+• "Windows hat den PC geschützt" o. Ä.
+    → Das betrifft nur .exe-Dateien – Hauskern.pyw ist keine. Prüfen, ob wirklich Hauskern.pyw
+      geöffnet wurde.
+
+Mac:
+• "python3: command not found" oder es öffnet sich ein Fenster "Entwicklertools installieren?"
+    → Python ist noch nicht installiert – Schritt B1 machen (Entwicklertools braucht man nicht).
+• Meldung mit "tkinter" oder "_tkinter" → Python von python.org nehmen (B1) bzw. bei Homebrew
+  "brew install python-tk".
+• Wetter / Updates gehen nicht, Fehler mit "CERTIFICATE_VERIFY_FAILED"
+    → Programme → Python 3.13 → "Install Certificates.command" doppelt anklicken.
+• Fenster sieht klein oder unscharf aus → das ist am Mac leider so. Ist der Handy-Zugang eingerichtet,
+  ist die Handy-Ansicht im Browser (http://localhost:8770) eine gute Alternative.
+
+Linux:
+• Meldung "No module named tkinter" → sudo apt install python3-tk
+• Handy kommt nicht dran → Firewall-Freigabe aus C4.
+
+Router und Geräte:
+• FRITZ!Box-Anmeldung klappt nicht
+    → Benutzername und Passwort des FRITZ!Box-Benutzers aus Teil D nehmen (nicht das WLAN-Passwort).
+• Anderer Router: keine Datenrate / externe IP zu sehen
+    → In der Oberfläche des Routers "UPnP" einschalten (heißt oft "UPnP" oder "Universal Plug and Play").
+• Anderer Router: Geräte fehlen in der Liste
+    → Kurz warten – die Liste füllt sich in den ersten Minuten. Handys im Energiesparmodus tauchen
+      manchmal erst auf, wenn man sie kurz entsperrt.
+• Gerät eines anderen Herstellers wird nicht gefunden
+    → In "🔌 Weitere Hersteller" steht beim Eintrag, wie das Gerät mit dieser IP in der FRITZ!Box
+      heißt. Steht dort ein anderes Gerät, ist die IP falsch. Sonst: "🐞 Klappt nicht? Melden".
+• Kamerabilder fehlen
+    → Windows: Hauskern lädt beim ersten Mal ein Zusatzprogramm (ffmpeg) herunter – kurz warten.
+      Mac/Linux: ffmpeg installieren (B4 bzw. C2).
+
+
+=====================================================================
+🐞 PROBLEM MELDEN – DIREKT AUS HAUSKERN
+=====================================================================
+Klappt etwas nicht, kannst du das direkt aus Hauskern melden:
+  • Am PC:    "⋯ Mehr" → "🐞 Problem melden"
+              (oder auf der Diagnose-Seite, oder bei "Weitere Hersteller" → "🐞 Klappt nicht? Melden")
+  • Am Handy: ⚙ → "🐞 Problem melden"
+
+So geht's:
+  1. Kurz beschreiben: Was wolltest du machen? Was ist passiert? Gern die genaue Meldung abschreiben.
+  2. "Worum geht es?" auswählen (z. B. "Weitere Hersteller" oder "Kameras").
+  3. Mit "👁 Vorschau" siehst du genau, was in der Meldung steht.
+  4. "🌐 Auf GitHub melden" – im Browser öffnet sich die Projektseite mit deiner fertig
+     ausgefüllten Meldung. Dort (kostenlos) anmelden und auf "Create" klicken – fertig.
+
+WICHTIG: Meldungen auf GitHub sind öffentlich sichtbar. Hauskern entfernt deshalb vorher
+IP- und MAC-Adressen, Namen, Ordnerpfade, E-Mail-Adressen, Passwörter und Zugangscodes.
+Lies die Meldung trotzdem kurz durch, bevor du auf "Create" klickst.
+Das ausführliche Fehlerprotokoll wird NICHT automatisch hochgeladen. Es liegt als ZIP bei dir
+(Windows: auf dem Desktop, sonst im Hauskern-Datenordner im Unterordner "meldungen") – anhängen
+nur, wenn du damit einverstanden bist, dass es öffentlich ist.
+
+
+=====================================================================
+🔒 SICHERHEIT & RECHTLICHES
+=====================================================================
+• Keine Portfreigabe für Hauskern im Router – von unterwegs nur per VPN.
+• Für den Handy-Zugang eine eigene PIN wählen, die man nicht leicht errät – und am besten
+  Zwei-Faktor einschalten (⚙ → 🔐 Zwei-Faktor-Anmeldung).
+• Keine Geräte über Hauskern schalten, bei denen unbeaufsichtigtes Ein- oder Ausschalten
+  gefährlich sein kann (Heizlüfter, Bügeleisen, Herd …). Hauskern ist kein Alarmsystem.
+• Hauskern ist freie Software unter der GPL-3.0 und kommt OHNE JEDE GEWÄHR.
+  Alles Weitere (Lizenz, Haftung, Datenschutz, Marken, Fremdsoftware): RECHTLICHES.txt
+
+
+=====================================================================
+DATENSCHUTZ
+=====================================================================
+Hauskern läuft nur bei dir zu Hause. Deine Einstellungen und Passwörter liegen auf deinem Rechner
+(Windows: %APPDATA%\Hauskern · Mac/Linux: ~/.config/Hauskern) und gehen nirgendwo hin.
+Hauskern selbst verschickt nie etwas von sich aus und sammelt keine Daten. "🐞 Problem melden"
+öffnet nur deinen Browser – abgeschickt wird erst, wenn DU auf GitHub auf "Create" klickst.
+Was du sonst einrichtest (z. B. Push-Nachrichten, Wetter, Kalender), läuft direkt zwischen
+deinem Rechner und dem jeweiligen Dienst.
