@@ -1,0 +1,49 @@
+name: Release
+
+# Baut bei jedem Push auf main die signierte Consumer-ZIP. Ist die VERSION in Hauskern.pyw neu,
+# wird automatisch ein Release mit Consumer-Hauskern-<version>.zip erstellt.
+# Der Signierschlüssel kommt aus dem Repository-Secret HAUSKERN_SIGNIERSCHLUESSEL –
+# ohne ihn bricht der Bau ab und es wird nichts veröffentlicht.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Signierte Consumer-ZIP bauen
+        id: ver
+        env:
+          HAUSKERN_SIGNIERSCHLUESSEL: ${{ secrets.HAUSKERN_SIGNIERSCHLUESSEL }}
+        run: |
+          python3 -I .github/build/consumer_bauen.py --ausgabe out | tee build.log
+          V=$(grep -oP '^version=\K.+' build.log)
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+      - name: Gibt es das Release schon?
+        id: chk
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "v${{ steps.ver.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=1" >> "$GITHUB_OUTPUT"; echo "Release v${{ steps.ver.outputs.version }} gibt es schon – nichts zu tun."
+          else
+            echo "exists=0" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Release veröffentlichen
+        if: steps.chk.outputs.exists == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          V: ${{ steps.ver.outputs.version }}
+        run: |
+          gh release create "v$V" "out/Consumer-Hauskern-$V.zip" \
+            --target "$GITHUB_SHA" --title "Hauskern $V" \
+            --notes-file out/release-notes.md --latest
